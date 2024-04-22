@@ -3,11 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = [
     {
       id: 1,
-      value: 5,
+      value: 0,
     },
     {
       id: 2,
-      value: 10,
+      value: 0,
     },
   ];
 
@@ -17,11 +17,18 @@ const countersSlice = createSlice({
     reducers:{
         increment: (state, action) => {
             const counterIndex = state.findIndex(c => c.id === action.payload);
-            state[counterIndex].value++;
+            if (state[counterIndex].value >= 0) {
+                state[counterIndex].value++;
+            }
         },
         decrement: (state, action) => {
             const counterIndex = state.findIndex(c => c.id === action.payload);
-            state[counterIndex].value--;
+            if (state[counterIndex].value > 0) {
+                state[counterIndex].value--;
+            }
+            else {
+                alert("Counter value is already zero!");
+            }
         },
     }
 
